@@ -7,8 +7,8 @@ namespace AssetManagementTeam6.Data.Repositories.Interfaces
     {
         Task<IEnumerable<T>> GetListAsync(Expression<Func<T, bool>>? predicate = null);
         Task<T?> GetOneAsync(Expression<Func<T, bool>>? predicate = null);
-        Task<T> CreateAsync(T entity);
-        Task<T> UpdateAsync(T entity);
-        Task<bool> DeleteAsync(T entity);
+        T Create(T entity);
+        T Update(T entity);
+        bool Delete(T? entity);
     }
 }

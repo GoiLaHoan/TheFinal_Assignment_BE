@@ -1,5 +1,13 @@
+using AssetManagementTeam6.API.Services.Implements;
+using AssetManagementTeam6.API.Services.Interfaces;
 using AssetManagementTeam6.Data;
+using AssetManagementTeam6.Data.Repositories.Implements;
+using AssetManagementTeam6.Data.Repositories.Interfaces;
+using Common.Constants;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,9 +24,27 @@ builder.Services.AddDbContext<AssetManagementContext>(opt =>
 });
 // End add config
 
+builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
+ options =>
+ {
+     options.RequireHttpsMetadata = false;
+     options.SaveToken = true;
+     options.TokenValidationParameters = new TokenValidationParameters
+     {
+         ValidateIssuer = true,
+         ValidateAudience = true,
+         ValidIssuer = JwtConstant.Issuer,
+         ValidAudience = JwtConstant.Audience,
+         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtConstant.Key))
+     };
+ });
 
 var app = builder.Build();
 
@@ -30,6 +56,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

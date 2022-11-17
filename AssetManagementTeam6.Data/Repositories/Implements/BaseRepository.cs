@@ -15,18 +15,16 @@ namespace AssetManagementTeam6.Data.Repositories.Implements
             _dbSet = context.Set<T>();
             _context = context;
         }
-        public async Task<T> CreateAsync(T entity)
+        public T Create(T entity)
         {
-            await _dbSet.AddAsync(entity);
-
-            return entity;
+            return _dbSet.Add(entity).Entity;
         }
 
-        public Task<bool> DeleteAsync(T entity)
+        public bool Delete(T? entity)
         {
             _dbSet.Remove(entity);
 
-            return Task.FromResult(true);
+            return true;
         }
 
         public async Task<IEnumerable<T>> GetListAsync(Expression<Func<T, bool>>? predicate = null)
@@ -42,12 +40,10 @@ namespace AssetManagementTeam6.Data.Repositories.Implements
 
             return await dbSet;
         }
-
-        public Task<T> UpdateAsync(T entity)
+        public T Update(T entity)
         {
-            _dbSet.Update(entity);
-
-            return Task.FromResult(entity);
+            return _dbSet.Update(entity).Entity;
         }
+
     }
 }
