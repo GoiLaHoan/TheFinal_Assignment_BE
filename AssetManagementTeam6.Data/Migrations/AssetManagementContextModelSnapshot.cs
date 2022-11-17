@@ -186,43 +186,89 @@ namespace AssetManagementTeam6.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<DateTime?>("DateOfBirth")
-                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Gender")
+                    b.Property<int?>("Gender")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("JoinedDate")
-                        .IsRequired()
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StaffCode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("Type")
+                        .HasColumnType("int");
 
                     b.Property<string>("Username")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DateOfBirth = new DateTime(2000, 1, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Dong",
+                            Gender = 1,
+                            JoinedDate = new DateTime(2022, 11, 17, 3, 57, 12, 675, DateTimeKind.Utc).AddTicks(4758),
+                            LastName = "Nguyen",
+                            Password = "123456",
+                            StaffCode = "SD0001",
+                            Type = 0,
+                            Username = "dongnp"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DateOfBirth = new DateTime(2000, 11, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Hoan",
+                            Gender = 1,
+                            JoinedDate = new DateTime(2022, 11, 17, 3, 57, 12, 675, DateTimeKind.Utc).AddTicks(4764),
+                            LastName = "Nguyen",
+                            Password = "123456",
+                            StaffCode = "SD0002",
+                            Type = 0,
+                            Username = "hoannv"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DateOfBirth = new DateTime(1988, 11, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Duc",
+                            Gender = 1,
+                            JoinedDate = new DateTime(2022, 11, 17, 3, 57, 12, 675, DateTimeKind.Utc).AddTicks(4766),
+                            LastName = "Bui",
+                            Password = "123456",
+                            StaffCode = "SD0003",
+                            Type = 1,
+                            Username = "ducbh"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            DateOfBirth = new DateTime(2003, 11, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FirstName = "Hang",
+                            Gender = 2,
+                            JoinedDate = new DateTime(2022, 11, 17, 3, 57, 12, 675, DateTimeKind.Utc).AddTicks(4768),
+                            LastName = "Le",
+                            Password = "123456",
+                            StaffCode = "SD0004",
+                            Type = 0,
+                            Username = "hanglt"
+                        });
                 });
 
             modelBuilder.Entity("AssetManagementTeam6.Data.Entities.Asset", b =>

@@ -7,6 +7,6 @@ namespace AssetManagementTeam6.Data.Entities
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public T? Id { get; set; }
+        public T Id { get; set; }
     }
 }
